@@ -53,7 +53,11 @@ const getTrainers = async (req, res) => {
 
 const createTrainer = async (req, res) => {
   try {
-    const trainer = new Trainer(req.body);
+    const trainerData = { ...req.body };
+    if (req.file) {
+      trainerData.image = `/uploads/${req.file.filename}`;
+    }
+    const trainer = new Trainer(trainerData);
     await trainer.save();
     res.status(201).json({ success: true, data: trainer });
   } catch (error) {
@@ -63,7 +67,11 @@ const createTrainer = async (req, res) => {
 
 const updateTrainer = async (req, res) => {
   try {
-    const trainer = await Trainer.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const trainerData = { ...req.body };
+    if (req.file) {
+      trainerData.image = `/uploads/${req.file.filename}`;
+    }
+    const trainer = await Trainer.findByIdAndUpdate(req.params.id, trainerData, { new: true });
     res.status(200).json({ success: true, data: trainer });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });

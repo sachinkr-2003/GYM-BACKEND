@@ -11,6 +11,7 @@ const {
   getSchedule, createSchedule, updateSchedule, deleteSchedule
 } = require('../controllers/gymController');
 const { protect } = require('../middlewares/authMiddleware');
+const upload = require('../middlewares/uploadMiddleware');
 
 // Auth
 router.post('/login', authAdmin);
@@ -34,8 +35,8 @@ router.put('/plans/:id', protect, updatePlan);
 router.delete('/plans/:id', protect, deletePlan);
 
 // Trainers
-router.post('/trainers', protect, createTrainer);
-router.put('/trainers/:id', protect, updateTrainer);
+router.post('/trainers', protect, upload.single('image'), createTrainer);
+router.put('/trainers/:id', protect, upload.single('image'), updateTrainer);
 router.delete('/trainers/:id', protect, deleteTrainer);
 
 // Services
