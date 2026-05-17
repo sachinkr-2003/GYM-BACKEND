@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const Plan = require('../models/Plan');
 const Trainer = require('../models/Trainer');
 const Service = require('../models/Service');
@@ -34,6 +35,9 @@ const updatePlan = async (req, res) => {
 
 const deletePlan = async (req, res) => {
   try {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      return res.status(200).json({ success: true, message: 'Default plan removed (not in DB)' });
+    }
     await Plan.findByIdAndDelete(req.params.id);
     res.status(200).json({ success: true, message: 'Plan deleted' });
   } catch (error) {
@@ -80,6 +84,9 @@ const updateTrainer = async (req, res) => {
 
 const deleteTrainer = async (req, res) => {
   try {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      return res.status(200).json({ success: true, message: 'Default trainer removed (not in DB)' });
+    }
     await Trainer.findByIdAndDelete(req.params.id);
     res.status(200).json({ success: true, message: 'Trainer deleted' });
   } catch (error) {
@@ -118,6 +125,9 @@ const updateService = async (req, res) => {
 
 const deleteService = async (req, res) => {
   try {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      return res.status(200).json({ success: true, message: 'Default service removed (not in DB)' });
+    }
     await Service.findByIdAndDelete(req.params.id);
     res.status(200).json({ success: true, message: 'Service deleted' });
   } catch (error) {
@@ -156,6 +166,9 @@ const updateSchedule = async (req, res) => {
 
 const deleteSchedule = async (req, res) => {
   try {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      return res.status(200).json({ success: true, message: 'Default schedule item removed (not in DB)' });
+    }
     await Schedule.findByIdAndDelete(req.params.id);
     res.status(200).json({ success: true, message: 'Schedule item deleted' });
   } catch (error) {
