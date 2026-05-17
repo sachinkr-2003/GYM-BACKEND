@@ -8,6 +8,7 @@ const contactRoutes = require('./routes/contactRoutes');
 const reviewRoutes = require('./routes/reviewRoutes');
 const bookingRoutes = require('./routes/bookingRoutes');
 const adminRoutes = require('./routes/adminRoutes');
+const gymRoutes = require('./routes/gymRoutes');
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use('/api/contact', contactRoutes);
 app.use('/api/reviews', reviewRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api', gymRoutes);
 
 // Base route
 app.get('/', (req, res) => {
