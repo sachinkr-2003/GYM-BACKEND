@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { authAdmin, getDashboardStats } = require('../controllers/adminController');
-const { getContacts, markContactRead } = require('../controllers/contactController');
+const { getContacts, markContactRead, deleteContact } = require('../controllers/contactController');
 const { getBookings } = require('../controllers/bookingController');
 const { getAllReviews, approveReview, deleteReview } = require('../controllers/reviewController');
 const {
@@ -22,6 +22,7 @@ router.get('/dashboard', protect, getDashboardStats);
 // Contacts & Bookings
 router.get('/contacts', protect, getContacts);
 router.put('/contacts/:id/read', protect, markContactRead);
+router.delete('/contacts/:id', protect, deleteContact);
 router.get('/bookings', protect, getBookings);
 
 // Reviews
